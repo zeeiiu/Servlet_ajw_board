@@ -30,7 +30,7 @@ public class BDao {
 		BoardVO board = null;
 
 		Connection connection = null;
-		PreparedStatement preparedStatement = null;  //PreparedStatement Statementº¸´Ù ¼º´ÉÀûÀ¸·Î ÁÁÀº°Í,, ±×·¡¼­ ¹°À½Ç¥µµ Á¦°ø
+		PreparedStatement preparedStatement = null;  //PreparedStatement Statementë³´ë‹¤ ì„±ëŠ¥ì ìœ¼ë¡œ ì¢‹ì€ê²ƒ,, ê·¸ëž˜ì„œ ë¬¼ìŒí‘œë„ ì œê³µ
 		ResultSet resultSet = null;
 
 		try {
@@ -57,7 +57,7 @@ public class BDao {
 				int bstep = resultSet.getInt("bstep");
 				int bindent = resultSet.getInt("bindent");
 
-				board = new BoardVO(bid, bname, btitle, bcontent, bdate, bhit, bgroup, bstep, bindent);
+				BoardVO board = new BoardVO(bid, bname, btitle, bcontent, bdate, bhit, bgroup, bstep, bindent);
 
 			}
 
@@ -91,7 +91,7 @@ public class BDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
-		try { // ´ñ±ÛÀÌ ±×·ìº°·Î ¹­ÀÌ±â ¶§¹®¿¡ by bgroupÀ¸·Î ¹­¾îÁÖ°í ±× ±×·ì ³»¿¡¼­ stepÀ¸·Î Á¤·ÄÇÑ´Ù.  
+		try { // ëŒ“ê¸€ì´ ê·¸ë£¹ë³„ë¡œ ë¬¶ì´ê¸° ë•Œë¬¸ì— by bgroupìœ¼ë¡œ ë¬¶ì–´ì£¼ê³  ê·¸ ê·¸ë£¹ ë‚´ì—ì„œ stepìœ¼ë¡œ ì •ë ¬í•œë‹¤.  
 			String query = "select * from mvc_board order by bgroup desc, bstep asc";
 
 			connection = dataSource.getConnection();
@@ -229,7 +229,7 @@ public class BDao {
 			preparedStatement = connection.prepareStatement(query);
 
 
-			preparedStatement.setString(1, bname );   // Ã¹ ¹øÂ° ?¿¡ µé¾î°¡´Â °Ç bname
+			preparedStatement.setString(1, bname );   // ì²« ë²ˆì§¸ ?ì— ë“¤ì–´ê°€ëŠ” ê±´ bname
 			preparedStatement.setString(2, btitle );
 			preparedStatement.setString(3, bcontent );
 
@@ -259,7 +259,7 @@ public class BDao {
 		BoardVO board = null;
 
 		Connection connection = null;
-		PreparedStatement preparedStatement = null;  //PreparedStatement Statementº¸´Ù ¼º´ÉÀûÀ¸·Î ÁÁÀº°Í,, ±×·¡¼­ ¹°À½Ç¥µµ Á¦°ø
+		PreparedStatement preparedStatement = null;  //PreparedStatement Statementë³´ë‹¤ ì„±ëŠ¥ì ìœ¼ë¡œ ì¢‹ì€ê²ƒ,, ê·¸ëž˜ì„œ ë¬¼ìŒí‘œë„ ì œê³µ
 		ResultSet resultSet = null;
 
 		try {
@@ -315,7 +315,7 @@ public class BDao {
 	public int reply(String bid, String bname, String btitle, String bcontent, 
 			           String bgroup, String bstep, String bindent) {
 
-		replyShape(bgroup, bstep); // ´ñ±ÛÀÇ ´ñ±ÛÀº ÇÃ·¯½º 1 ÇØÁà¾ßÇÏ´Ï±ñ
+		replyShape(bgroup, bstep); // ëŒ“ê¸€ì˜ ëŒ“ê¸€ì€ í”ŒëŸ¬ìŠ¤ 1 í•´ì¤˜ì•¼í•˜ë‹ˆê¹
 
 		
 		Connection connection = null;
@@ -332,8 +332,8 @@ public class BDao {
 			preparedStatement.setString(2, btitle);
 			preparedStatement.setString(3, bcontent);
 			preparedStatement.setInt(4, Integer.parseInt(bgroup)); // parseInt means valueOf. Just this own is older version. 
-			preparedStatement.setInt(5, Integer.parseInt(bstep) + 1); // ÀÚ±â²¨
-			preparedStatement.setInt(6, Integer.parseInt(bindent) + 1); // ÀÚ±â²¨
+			preparedStatement.setInt(5, Integer.parseInt(bstep) + 1); // ìžê¸°êº¼
+			preparedStatement.setInt(6, Integer.parseInt(bindent) + 1); // ìžê¸°êº¼
 
 			rn = preparedStatement.executeUpdate();
 
@@ -364,7 +364,7 @@ public class BDao {
 		int rn = 0;
 		
 
-		try {  // ÀÚ±â°¡ µé¾î°¥ ÀÚ¸®¸¦ ¸¶·ÃÇÏ±â À§ÇØ¼­ ¹ØÀ¸·Î ½Ï ¹Ð¾î¹ö¸².  
+		try {  // ìžê¸°ê°€ ë“¤ì–´ê°ˆ ìžë¦¬ë¥¼ ë§ˆë ¨í•˜ê¸° ìœ„í•´ì„œ ë°‘ìœ¼ë¡œ ì‹¹ ë°€ì–´ë²„ë¦¼.  
 			String query = "update mvc_board set bStep = bStep + 1 where bGroup = ? and bStep > ?"; 
 
 			connection = dataSource.getConnection();
